@@ -1,0 +1,54 @@
+﻿ {% extends 'base.html' %}
+
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Student Portal</title>
+    <link rel="stylesheet" href="{% static 'css/css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container">
+        <ol class="breadcrumb my-4">
+
+            {% block breadcrumb %}
+            <li class="breadcrumb-item active">PROJECTS</li>
+            {% endblock %}
+        </ol>
+
+
+
+        {% block content %}
+        <div class="mb-4">
+        </div>
+
+
+        <table class="table">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>PROJECTS</th>
+                    <th>PARTICIPANTS</th>
+                    <th>SCHOOL</th>
+                    <th>PROJECT INFORMATION</th>
+                    <th>PROJECT PROPOSAL</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for project in boards %}
+                <tr>
+                    <td>
+                        <a href="{% url 'project_participants' project.pk %}">{{ project.name }}</a>
+                        <small class="text-muted d-block">{{ project.description }}</small>
+                    </td>
+                    <td class="align-middle">0</td>
+                    <td class="align-middle">0</td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endblock %}
+    </div>
+</body>
+</html>

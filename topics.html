@@ -1,0 +1,50 @@
+﻿{% extends 'base.html' %}
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}
+        {{ project.name }} - {{ block.super }}
+        {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container">
+        <ol class="breadcrumb my-4">
+            {% block breadcrumb %}
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Boards</a></li>
+            <li class="breadcrumb-item active">{{ project.name }}</li>
+            {% endblock %}
+        </ol>
+        {% block content %}
+
+    
+
+        <table class="table">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Project</th>
+                    <th>Starter</th>
+                    <th>Replies</th>
+                    <th>Views</th>
+                    <th>Last Update</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for participant in boards.participants.all %}
+                <tr>
+                    <td>{{ participant.project }}</td>
+                    <td>{{ participant.starter.username }}</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>{{ participant.last_updated }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endblock %}
+    </div>
+</body>
+</html>
