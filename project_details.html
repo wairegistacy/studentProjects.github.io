@@ -1,0 +1,91 @@
+
+{% load static %}<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>
+        {% block title %}Start a New Project{% endblock %}
+    </title>
+    <link rel="stylesheet" href="{% static 'css/css/bootstrap.min.css' %}">
+</head>
+<body>
+    <div class="container">
+        <ol class="breadcrumb my-4">
+            {% block breadcrumb %}
+            <li class="breadcrumb-item"><a href="{% url 'home' %}">Projects</a></li>
+           
+            <li class="breadcrumb-item active">New Project</li>
+            {% endblock %}
+        </ol>
+        {% block content %}
+        <form method="post">
+            {% csrf_token %}
+            <h1>PROJECT DETAILS: </h1>
+            <p>Please fill in the following details: </p>
+
+            <form action=" " method="post">
+
+                <div class="form-group">
+                    <label for="category">Category of the Project: </label><br>
+                    <select class="form-control" id="county" required name="county">
+                        <option value=" "> </option>
+                        <option value="Chemical, physical and Mathematical sciences">Chemical, physical and Mathematical sciences</option>
+                        <option value="Social and Behavioral sciences">Social and Behavioral sciences</option>
+                        <option value="Biological and Ecological Sciences">Biological and Ecological Sciences</option>
+                        <option value="Technology">Technology</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="level">Level: </label><br>
+                    <select class="form-control" id="level" required name="level">
+                        <option value=" "> </option>
+                        <option value="Junior(Form 1 and Form 2)">Junior(Form 1 and Form 2)</option>
+                        <option value="Senior (Form 3 and Form 4)">Senior (Form 3 and Form 4)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="Project_title">Project Title: </label><br>
+                    <input class="form-control" required name="Project_title" id="Project_title" type="text"><br>
+                </div>
+                <div class="form-group">
+                    <label for="Name_of_school">Name of school: </label><br>
+                    <input class="form-control" required name="Name_of_school" id="Name_of_school" type="text"><br>
+                </div>
+                <div class="form-group">
+                    <label for="Student_name">Student Names: </label>
+                    <input class="form-control" required name="Student_name" id="Student_name" type="text">
+                    <input class="form-control" required name="Student_name" id="Student_name" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="Introduction">Introduction: </label>
+                    <textarea required name="Introduction" rows="20" cols="150" placeholder="Write your Introduction here"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Method">Method: </label>
+                    <textarea required name="Method" rows="20" cols="150" placeholder="Write your method here"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Results">Results: </label>
+                    <textarea required name="Results" rows="20" cols="150" placeholder="Write your results here"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Conclusion">Conclusion: </label>
+                    <textarea required name="Conclusion" rows="20" cols="150" placeholder="Write your conclusion here"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Referees">References: </label>
+                    <textarea required name="Referees" rows="20" cols="150" placeholder="Write your references here"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="Acknowledge">Acknowledgments: </label>
+                    <textarea required name="Acknowledge" rows="20" cols="150" placeholder="Write your acknowledgments here"></textarea>
+                </div>
+                <div class="text-center">
+                    <button class="btn btn-primary" name="project_details">Save</button>
+                </div>
+    </div>
+
+    </form>
+    {% endblock %}
+</body>
+</html>

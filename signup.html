@@ -1,29 +1,42 @@
+﻿{% extends 'base.html' %}
 {% load static %}<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="{% static 'css/css/bootstrap.min.css' %}">
+    <title>Sign up</title>
+    {% block stylesheet %}
+    <link rel="stylesheet" href="{% static 'css/css/accounts.css' %}">
+    {% endblock %}
+    <style>
+        body {
+            background: url(Stem education.JPG) no-repeat center center fixed;
+        }
+    </style>
 </head>
 <body>
-{% block content %}
-<h2>Sign up</h2>
-<form method="post">
-    {% csrf_token %}
-    {% for field in form %}
-    <p>
-        {{ field.label_tag }}<br>
-        {{ field }}
-        {% if field.help_text %}
-        <small style="color: grey">{{ field.help_text }}</small>
-        {% endif %}
-        {% for error in field.errors %}
-    <p style="color: red">{{ error }}</p>
-    {% endfor %}
-    </p>
-    {% endfor %}
-    <button type="submit">Sign up</button>
-</form>
-{% endblock %}
+    {% block body %}
+    <div class="container">
+        <h1 class="text-center logo my-4">
+            <a href="{% url 'home' %}">Student Projects</a>
+        </h1>
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Sign up</h3>
+                        <form method="post" novalidate>
+                            {% csrf_token %}
+                            {% include 'includes/form.html' %}
+                            <button type="submit" class="btn btn-primary btn-block">Create an account</button>
+                        </form>
+                    </div>
+                    <div class="card-footer text-muted text-center">
+                        Already have an account? <a href="#">Log in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
 </body>
 </html>

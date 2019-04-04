@@ -16,37 +16,34 @@ def update_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
     instance.profile.save()
 
-class Project(models.Model):
+class Category(models.Model):
     name = models.CharField(max_length=30, unique=True)
     description = models.CharField(max_length=100)
     def __str__(self):
         return self.name
 
-class Participant(models.Model):
-    subject = models.CharField(max_length=255)
-    last_updated = models.DateTimeField(auto_now_add=True)
-    project = models.ForeignKey(Project, on_delete='models.DO_NOTHING', related_name='participant')
-    starter = models.ForeignKey(User, on_delete='models.DO_NOTHING',related_name='participant')
-   
-class School(models.Model):
-    subject = models.CharField(max_length=255)
-    last_updated = models.DateTimeField(auto_now_add=True)
-    participant = models.ForeignKey(Participant, on_delete='models.DO_NOTHING', related_name='school')
-    starter = models.ForeignKey(User, on_delete='models.DO_NOTHING',related_name='school')
-   
-class Project_Information(models.Model):
-    message = models.TextField(max_length=4000)
-    school = models.ForeignKey(School, on_delete='models.DO_NOTHING', related_name='project_information')
+class Project(models.Model):
+    topic = models.CharField(max_length=255, null=True)
+    firstParticipant = models.CharField(max_length=255, null=True)
+    secondParticipant = models.CharField(max_length=255, null=True)
+    schoolName = models.CharField(max_length=255, null=True)
+    level = models.CharField(max_length=255, null=True)
+    teacherInChargeName = models.CharField(max_length=255, null=True)
+    teacherInChargePhone = models.CharField(max_length=255, null=True)
+    teacherInChargeEmail = models.CharField(max_length=255, null=True)
+    principalName = models.CharField(max_length=255, null=True)
+    principalPhone = models.CharField(max_length=255, null=True)
+    principalEmail = models.CharField(max_length=255, null=True)
+    category = models.ForeignKey(Category, on_delete='models.DO_NOTHING', null=True, related_name='categories')
+    starter = models.ForeignKey(User, on_delete='models.DO_NOTHING', null=True, related_name='categories')
+    last_updated = models.DateTimeField(auto_now_add=True, null=True)
+
+class ProjectInfo(models.Model):
+    intro = models.TextField(max_length=4000)
+    aims = models.TextField(max_length=4000)
+    proposal = models.TextField(max_length=4000)
+    project = models.ForeignKey(Project, on_delete='models.DO_NOTHING', related_name='projects')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(null=True)
-    created_by = models.ForeignKey(User, on_delete='models.DO_NOTHING', related_name='project_information')
-    updated_by = models.ForeignKey(User, on_delete='models.DO_NOTHING', null=True, related_name='+')
-    
-class Project_Proposals(models.Model):
-    message = models.TextField(max_length=4000)
-    project_information = models.ForeignKey(Project_Information, on_delete='models.DO_NOTHING', related_name='project_proposals'),
-    created_at = models.DateTimeField(auto_now_add=True),
-    updated_at = models.DateTimeField(null=True),
-    created_by = models.ForeignKey(User, on_delete='models.DO_NOTHING', related_name='project_proposals'),
-    updated_by = models.ForeignKey(User, on_delete='models.DO_NOTHING', null=True, related_name='+'),
-    
+    created_by = models.ForeignKey(User, on_delete='models.DO_NOTHING', related_name='projects')
+    updated_by = models.ForeignKey(User, null=True, on_delete='models.DO_NOTHING', related_name='+')
