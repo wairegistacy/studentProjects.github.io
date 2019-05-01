@@ -21,6 +21,7 @@ from accounts import views as accounts_views
 from boards import views
 
 urlpatterns = [
+    url(r'^settings/account/$', accounts_views.UserUpdateView.as_view(), name='my_account'),
     url(r'^settings/password/$', auth_views.PasswordChangeView.as_view(template_name='password_change.html'), name='password_change'),
     url(r'^settings/password/done/$', auth_views.PasswordChangeDoneView.as_view(template_name='password_change_done.html'), name='password_change_done'),
     url(r'^reset/$',
@@ -42,10 +43,13 @@ urlpatterns = [
     url(r'^signup/$', accounts_views.signup, name='signup'),
     url(r'^login/$', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     url(r'^logout/$', auth_views.LogoutView.as_view(), name='logout'),
-    url(r'^home/$', views.home, name='home'),
-    url(r'^projects/(?P<pk>\d+)/$', views.category_project, name='category_project'),
-    url(r'^projects/(?P<pk>\d+)/new/$', views.new_project, name='new_project'),
+    url(r'^$', views.BoardListView.as_view(), name='home'),
+    url(r'^categories/(?P<pk>\d+)/$', views.TopicListView.as_view(), name='category_project'),
+    url(r'^categories/(?P<pk>\d+)/new/$', views.new_project, name='new_project'),
     url(r'^admin/', admin.site.urls),
-    url(r'^project_details/$', views.project_details, name='project_details'),
-
+    url(r'^categories/(?P<pk>\d+)/projects/(?P<project_pk>\d+)/$', views.PostListView.as_view(), name='project_details'),
+    url(r'^categories/(?P<pk>\d+)/projects/(?P<project_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
+    url(r'^categories/(?P<pk>\d+)/projects/(?P<project_pk>\d+)/posts/(?P<post_pk>\d+)/edit/$',
+        views.PostUpdateView.as_view(), name='edit_post'),
+    
 ]

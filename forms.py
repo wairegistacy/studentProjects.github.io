@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Project
+from .models import Project, Post
 
 
 class SignUpForm(UserCreationForm):
@@ -16,7 +16,7 @@ class SignUpForm(UserCreationForm):
 class NewProjectForm(forms.ModelForm):
     topic = forms.CharField(max_length=255, required=True, help_text='Required.')
     firstParticipant = forms.CharField(max_length=255, required=True, help_text='Required')
-    level = forms.CharField(widget=forms.Select(), max_length=255, required=True)
+    level = forms.CharField(max_length=255, required=True, help_text='Required')
     schoolName = forms.CharField(max_length=255, required=True, help_text='Required.')
     secondParticipant = forms.CharField(max_length=255, required=True, help_text='Required.')
     teacherInChargeName = forms.CharField(max_length=255, required=True, help_text='Required.')
@@ -25,8 +25,14 @@ class NewProjectForm(forms.ModelForm):
     principalName = forms.CharField(max_length=255, required=True, help_text='Required.')
     principalPhone= forms.CharField(max_length=255, required=True, help_text='Required')
     principalEmail = forms.CharField(max_length=255, required=True, help_text='Required.')
-
+    intro = forms.CharField(widget=forms.Textarea(), max_length=4000)
+    aims = forms.CharField(widget=forms.Textarea(), max_length=4000)
+    proposal = forms.CharField(widget=forms.Textarea(), max_length=4000)
     class Meta:
         model = Project
-        fields = ['topic','level','schoolName', 'firstParticipant','secondParticipant','teacherInChargeName', 'teacherInChargePhone', 'teacherInChargeEmail', 'principalName','principalPhone', 'principalEmail']
+        fields = ['topic','level','schoolName', 'firstParticipant','secondParticipant','teacherInChargeName', 'teacherInChargePhone', 'teacherInChargeEmail', 'principalName','principalPhone', 'principalEmail', 'aims','intro','proposal']
 
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['aims', 'intro', 'proposal' ]

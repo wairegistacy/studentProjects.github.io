@@ -1,10 +1,13 @@
-
+﻿{% extends 'base.html' %}
 {% load static %}<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
+
+    {% load gravatar %}
+
     <title>
-        {% block title %}Start a New Project{% endblock %}
+        {% block title %}{{project.topic}}{% endblock %}
     </title>
     <link rel="stylesheet" href="{% static 'css/css/bootstrap.min.css' %}">
 </head>
@@ -13,79 +16,54 @@
         <ol class="breadcrumb my-4">
             {% block breadcrumb %}
             <li class="breadcrumb-item"><a href="{% url 'home' %}">Projects</a></li>
-           
-            <li class="breadcrumb-item active">New Project</li>
+            <li class="breadcrumb-item"><a href="{% url 'category_project' project.boards.pk %}">{{ project.category.name }}</a></li>
+            <li class="breadcrumb-item active">{{ project.topic }}</li>
             {% endblock %}
         </ol>
+        </div>
         {% block content %}
-        <form method="post">
-            {% csrf_token %}
-            <h1>PROJECT DETAILS: </h1>
-            <p>Please fill in the following details: </p>
+        <div class="mb-4">
+            <<a href="{% url 'reply_topic' project.boards.pk project.pk %}" class="btn btn-primary" role="button">Reply</a>
+        </div>
 
-            <form action=" " method="post">
+        {% for post in posts %}
+        <div id="{{post.pk}}" class="card{% if forloop.last %}mb-4{% else %}mb-2{% endif %} {% if forloop.first %}border-dark{% endif %}">
+            {% if forloop.first %}
+            <div class="card-header text-white bg-dark py-2 px-3">{{ project.topic }}</div>
+            {% endif %}
+            <div class="card-body p-3">
+                <div class="row">
+                    <div class="col-2">
+                        <img src="{{ post.created_by|gravatar }}" alt="{{ post.user.username }}" class="w-100 rounded">
+                        <small>Posts: {{ post.user.posts.count }}</small>
+                    </div>
+                    <div class="col-10">
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <strong class="text-muted">{{ post.user.username }}</strong>
+                            </div>
+                            <div class="col-6 text-right">
+                                <small class="text-muted">{{ post.date_posted }}</small>
+                            </div>
+                        </div>
+                        {{ post.intro }}
+                        {{ post.aims }}
+                        {{ post.proposal }}
+                        {% if post.created_by == user %}
+                        <div class="mt-3">
+                            <a href="{% url 'edit_post' post.project.boards.pk post.project.pk post.pk %}"
+                               class="btn btn-primary btn-sm"
+                               role="button">Edit</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
 
-                <div class="form-group">
-                    <label for="category">Category of the Project: </label><br>
-                    <select class="form-control" id="county" required name="county">
-                        <option value=" "> </option>
-                        <option value="Chemical, physical and Mathematical sciences">Chemical, physical and Mathematical sciences</option>
-                        <option value="Social and Behavioral sciences">Social and Behavioral sciences</option>
-                        <option value="Biological and Ecological Sciences">Biological and Ecological Sciences</option>
-                        <option value="Technology">Technology</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="level">Level: </label><br>
-                    <select class="form-control" id="level" required name="level">
-                        <option value=" "> </option>
-                        <option value="Junior(Form 1 and Form 2)">Junior(Form 1 and Form 2)</option>
-                        <option value="Senior (Form 3 and Form 4)">Senior (Form 3 and Form 4)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="Project_title">Project Title: </label><br>
-                    <input class="form-control" required name="Project_title" id="Project_title" type="text"><br>
-                </div>
-                <div class="form-group">
-                    <label for="Name_of_school">Name of school: </label><br>
-                    <input class="form-control" required name="Name_of_school" id="Name_of_school" type="text"><br>
-                </div>
-                <div class="form-group">
-                    <label for="Student_name">Student Names: </label>
-                    <input class="form-control" required name="Student_name" id="Student_name" type="text">
-                    <input class="form-control" required name="Student_name" id="Student_name" type="text">
-                </div>
-                <div class="form-group">
-                    <label for="Introduction">Introduction: </label>
-                    <textarea required name="Introduction" rows="20" cols="150" placeholder="Write your Introduction here"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="Method">Method: </label>
-                    <textarea required name="Method" rows="20" cols="150" placeholder="Write your method here"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="Results">Results: </label>
-                    <textarea required name="Results" rows="20" cols="150" placeholder="Write your results here"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="Conclusion">Conclusion: </label>
-                    <textarea required name="Conclusion" rows="20" cols="150" placeholder="Write your conclusion here"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="Referees">References: </label>
-                    <textarea required name="Referees" rows="20" cols="150" placeholder="Write your references here"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="Acknowledge">Acknowledgments: </label>
-                    <textarea required name="Acknowledge" rows="20" cols="150" placeholder="Write your acknowledgments here"></textarea>
-                </div>
-                <div class="text-center">
-                    <button class="btn btn-primary" name="project_details">Save</button>
-                </div>
-    </div>
+           {% include 'includes/pagination.html' %}
 
-    </form>
-    {% endblock %}
+        {% endblock %}
 </body>
 </html>

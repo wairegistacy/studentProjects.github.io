@@ -16,33 +16,23 @@
             {% endblock %}
         </ol>
 
-
-
         {% block content %}
-        <div class="mb-4">
-        </div>
-
+        
 
         <table class="table">
             <thead class="thead-inverse">
                 <tr>
-                    <th>PROJECTS</th>
-                    <th>PARTICIPANTS</th>
-                    <th>SCHOOL</th>
-                    <th>PROJECT INFORMATION</th>
-                    <th>PROJECT PROPOSAL</th>
-
+                    <th>CATEGORY</th>
                 </tr>
             </thead>
             <tbody>
-                {% for project in boards %}
+                {% for category in boards %}
                 <tr>
                     <td>
-                        <a href="{% url 'project_participants' project.pk %}">{{ project.name }}</a>
-                        <small class="text-muted d-block">{{ project.description }}</small>
+                        <a href="{% url 'category_project' category.pk %}">{{ category.name }}</a>
+                        <small class="text-muted d-block">{{ category.description }}</small>
                     </td>
-                    <td class="align-middle">0</td>
-                    <td class="align-middle">0</td>
+                    
                     <td></td>
                 </tr>
                 {% endfor %}
