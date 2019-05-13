@@ -23,57 +23,7 @@
             <a href="{% url 'new_project' boards.pk %}" class="btn btn-primary">New Project</a>
         </div>
 
-        <table class="table">
-            <thead class="thead-inverse">
-                <tr>
-                    <th>Topic</th>
-                    <th>Level</th>
-                    <th>School Name</th>
-                    <th>First Participant</th>
-                    <th>Second Participant</th>
-                    <th>Teacher in Charge's Name</th>
-                    <th>Teacher in Charge's Phone</th>
-                    <th>Teacher in Charge's Email</th>
-                    <th>Principal's Name</th>
-                    <th>Principal's Phone</th>
-                    <th>Principal's Email</th>
-                    <th>Date Posted</th>
-
-                </tr>
-            </thead>
-            <tbody>
-                {% for project in projects %}
-                {% url 'project_details' boards.pk project.pk as project_url %}
-                <tr>
-                    <td>
-                        <p class="mb-0">
-                            <a href="{{ project_url }}">{{ project.topic }}</a>
-                        </p>
-                        <small class="text-muted">
-                            Pages:
-                            {% for i in topic.get_page_range %}
-                            <a href="{{ project_url }}?page={{ i }}">{{ i }}</a>
-                            {% endfor %}
-                            {% if project.has_many_pages %}
-                            ... <a href="{{ project_url }}?page={{ project.get_page_count }}">Last Page</a>
-                            {% endif %}
-                        </small>
-                    </td>
-                    <td>{{ project.level }}</td>
-                    <td>{{ project.schoolName }}</td>
-                    <td>{{ project.firstParticipant }}</td>
-                    <td>{{ project.secondParticipant }}</td>
-                    <td>{{ project.teacherInChargeName }}</td>
-                    <td>{{ project.teacherInChargePhone }}</td>
-                    <td>{{ project.teacherInChargeEmail }}</td>
-                    <td>{{ project.principalName }}</td>
-                    <td>{{ project.principalPhone }}</td>
-                    <td>{{ project.principalEmail }}</td>
-                    <td>{{ project.date_posted }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        
 
         {% if is_paginated %}
         <nav aria-label="Projects pagination" class="mb-4">

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/css/bootstrap.min.css' %}">
 </head>
 <body>
+    
     <div class="container">
         <ol class="breadcrumb my-4">
 
@@ -16,8 +17,10 @@
             {% endblock %}
         </ol>
 
+       
+
         {% block content %}
-        
+
 
         <table class="table">
             <thead class="thead-inverse">
@@ -32,7 +35,7 @@
                         <a href="{% url 'category_project' category.pk %}">{{ category.name }}</a>
                         <small class="text-muted d-block">{{ category.description }}</small>
                     </td>
-                    
+
                     <td></td>
                 </tr>
                 {% endfor %}

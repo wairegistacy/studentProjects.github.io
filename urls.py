@@ -46,6 +46,7 @@ urlpatterns = [
     url(r'^$', views.BoardListView.as_view(), name='home'),
     url(r'^categories/(?P<pk>\d+)/$', views.TopicListView.as_view(), name='category_project'),
     url(r'^categories/(?P<pk>\d+)/new/$', views.new_project, name='new_project'),
+
     url(r'^admin/', admin.site.urls),
     url(r'^categories/(?P<pk>\d+)/projects/(?P<project_pk>\d+)/$', views.PostListView.as_view(), name='project_details'),
     url(r'^categories/(?P<pk>\d+)/projects/(?P<project_pk>\d+)/reply/$', views.reply_topic, name='reply_topic'),
