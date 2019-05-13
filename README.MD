@@ -1,1 +1,2 @@
-# studentProjects
+# studentProjects.github.io
+The world is an oyster, and so is the spring of ideas bubbling from students wishing to tackle the world with their innovations. Through the Internship, I have been tasked to create a platform that will allow these young minds to submit their brilliant thinking and projects  into the Young Scientists application workflow. In this project, I will build a front-end web app and a back-end admin piece, and in so doing learn cool stuff and amazing tricks in Bootstrap, AJAX, JQUERY and see where the journey takes me!
